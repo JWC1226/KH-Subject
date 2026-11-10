@@ -1,0 +1,19 @@
+target/
+.idea/
+*.iml
+.vscode/
+cookie.txt
+
+# 자동 생성: IDE/빌드 산출물 제외
+.metadata/
+target/
+bin/
+build/
+out/
+.gradle/
+node_modules/
+*.class
+.claude/
+.DS_Store
+Thumbs.db
+

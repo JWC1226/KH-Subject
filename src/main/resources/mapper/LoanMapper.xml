@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.secure.assign.mapper.LoanMapper">
+
+    <select id="findByCustomer" resultType="edu.secure.assign.domain.Loan">
+        SELECT loan_id, customer_id, balance, status
+          FROM loan
+         WHERE customer_id = #{customerId}
+    </select>
+
+    <!-- 정렬 컬럼은 LoanService 의 허용 목록에서 매핑된 상수만 전달된다 (사용자 입력 직접 사용 금지) -->
+    <select id="findSorted" resultType="edu.secure.assign.domain.Loan">
+        SELECT loan_id, customer_id, balance, status
+          FROM loan
+         WHERE customer_id = #{customerId}
+         ORDER BY ${sortBy}
+    </select>
+
+    <select id="findById" resultType="edu.secure.assign.domain.Loan">
+        SELECT loan_id, customer_id, balance, status
+          FROM loan
+         WHERE loan_id = #{loanId}
+           AND customer_id = #{customerId}
+    </select>
+
+    <!-- 상환: 소유자/잔액 조건을 건 조건부 UPDATE 한 문장 (영향 행 1 = 성공, 0 = 실패) -->
+    <update id="repay">
+        UPDATE loan
+           SET balance = balance - #{amount}
+         WHERE loan_id = #{loanId}
+           AND customer_id = #{customerId}
+           AND balance >= #{amount}
+    </update>
+</mapper>
