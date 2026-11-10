@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace: 연결할 Mapper 인터페이스의 전체 패키지 경로 -->
+<mapper namespace="com.kh.mdgs.member.UserMapper">
+
+	<insert id="insert">
+		INSERT INTO USERS (User_SID, ID, Password, Email, Age, Address, Card_Num)
+		VALUES (#{userSid}, #{id}, #{password}, #{email}, #{age}, #{address}, #{cardNum})
+	</insert>
+
+	<!-- 로그인: 아이디+비밀번호가 일치하는 회원 한 명을 조회. User 객체에 id/password만 채워서 파라미터로 전달 -->
+	<select id="login" resultType="User">
+		SELECT User_SID AS userSid, ID AS id, Password AS password, Email AS email,
+		       Age AS age, Address AS address, Card_Num AS cardNum
+		FROM USERS
+		WHERE ID = #{id} AND Password = #{password}
+	</select>
+
+	<!-- 아이디 중복 확인용 개수 조회 -->
+	<select id="countById" resultType="int">
+		SELECT COUNT(*) FROM USERS WHERE ID = #{id}
+	</select>
+
+	<select id="findBySid" resultType="User">
+		SELECT User_SID AS userSid, ID AS id, Password AS password, Email AS email,
+		       Age AS age, Address AS address, Card_Num AS cardNum
+		FROM USERS
+		WHERE User_SID = #{userSid}
+	</select>
+
+	<!-- 계정 정보 수정 (이메일/나이/주소/카드번호만; ID/비밀번호는 변경 범위 밖) -->
+	<update id="update">
+		UPDATE USERS
+		SET Email = #{email}, Age = #{age}, Address = #{address}, Card_Num = #{cardNum}
+		WHERE User_SID = #{userSid}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM USERS WHERE User_SID = #{userSid}
+	</delete>
+
+	<!-- 전체 회원 조회 (관리자 전용) -->
+	<select id="findAll" resultType="User">
+		SELECT User_SID AS userSid, ID AS id, Password AS password, Email AS email,
+		       Age AS age, Address AS address, Card_Num AS cardNum
+		FROM USERS
+		ORDER BY User_SID
+	</select>
+
+</mapper>

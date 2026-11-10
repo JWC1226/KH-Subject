@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace: 연결할 Mapper 인터페이스의 전체 패키지 경로 -->
+<mapper namespace="com.kh.mdgs.game.GameMapper">
+
+	<!-- GAMES 테이블 컬럼명(GAME_ID 등)과 Game DTO의 camelCase 필드명이 다르므로 AS로 별칭을 맞춰준다 -->
+	<select id="findAll" resultType="Game">
+		SELECT GAME_ID AS gameId, TITLE AS title, GENRE AS genre, PRICE AS price,
+		       RELEASE_DATE AS releaseDate, DEVELOPER AS developer, IMAGE_PATH AS imagePath
+		FROM GAMES
+	</select>
+
+	<!-- 제목 부분 검색 (대소문자 무시). Oracle은 문자열 결합에 || 연산자를 사용 -->
+	<select id="search" resultType="Game">
+		SELECT GAME_ID AS gameId, TITLE AS title, GENRE AS genre, PRICE AS price,
+		       RELEASE_DATE AS releaseDate, DEVELOPER AS developer, IMAGE_PATH AS imagePath
+		FROM GAMES
+		WHERE UPPER(TITLE) LIKE UPPER('%' || #{keyword} || '%')
+	</select>
+
+	<select id="findById" resultType="Game">
+		SELECT GAME_ID AS gameId, TITLE AS title, GENRE AS genre, PRICE AS price,
+		       RELEASE_DATE AS releaseDate, DEVELOPER AS developer, IMAGE_PATH AS imagePath
+		FROM GAMES
+		WHERE GAME_ID = #{gameId}
+	</select>
+
+</mapper>

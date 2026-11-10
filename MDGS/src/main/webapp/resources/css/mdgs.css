@@ -1,0 +1,780 @@
+/* 기본 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 0.7;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+/* 중앙 정렬 컨테이너 */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 공통 포인트 컬러 설정 */
+/* 배운 부분은 아니지만, 편의상 필요성 느낌 */
+:root {
+    --point-color: #c1a255; /*포인트 색감*/
+    --alert-color: #bc6363; /*경고/중요도 색상*/
+    --panel-bg: #1e1e1e;    /*다크 패널 색상*/
+    --hover-bg: #2a2a2a;    /*호버 색상*/
+}
+/* ------------------------------------ */
+/* 배너 영역 */
+.top-banner {
+    background-color: #171717;
+    border-bottom: 1px solid #333;
+    padding: 15px 0;
+}
+.banner-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 로고 */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--point-color);
+    cursor: pointer;
+}
+.logo img {
+    height: 35px;
+    width: auto;
+    object-fit: contain;
+}
+
+/*검색창*/
+.search-box {
+    display: flex;
+    align-items: center;
+}
+.search-box input {
+    width: 350px;
+    padding: 10px 15px;
+    border-radius: 20px 0 0 20px;
+    border: 1px solid #444;
+    border-right: none;
+    background-color: #222;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.3s;
+}
+.search-box input:focus {
+    border-color: var(--point-color);
+}
+.search-box button {
+    width: 45px;
+    padding: 10px;
+    border-radius: 0 20px 20px 0;
+    border: 1px solid #444;
+    border-left: none;
+    background-color: #222;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.search-box:has(:where(input:focus, button:focus-visible)) button {
+    border-color: var(--point-color);
+    color: var(--point-color);
+}
+.search-box button:hover {
+    background-color: var(--point-color);
+    color: #121212;
+}
+
+/* 사용자 탭 */
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+}
+.user-actions a:hover {
+    color: var(--point-color);
+}
+.user-actions .welcome-msg {
+    color: var(--point-color);
+    font-weight: bold;
+}
+
+/* ------------------------------------ */
+/* 상단 영역: 카테고리 */
+.main-menu ul {
+    list-style: none;
+}
+.main-menu > .container > ul {
+    display: flex;
+}
+
+.main-menu > .container > ul > li {
+    position: relative;
+}
+.main-menu > .container > ul > li > a {
+    display: block;
+    padding: 15px 25px;
+    font-weight: 500;
+}
+.main-menu > .container > ul > li > a:hover {
+    color: var(--point-color);
+    background-color: var(--hover-bg);
+}
+
+/* sub-menu 기본 숨김 처리 및 호버시 표시 */
+.sub-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 200px;
+    background-color: #222;
+    border: 1px solid #333;
+    z-index: 100;
+}
+.main-menu li:hover .sub-menu {
+    display: block;
+}
+.sub-menu li a {
+    display: block;
+    padding: 12px 20px;
+    border-bottom: 1px solid #333;
+}
+.sub-menu li a:hover {
+    background-color: #333;
+    color: var(--point-color);
+}
+/* ------------------------------------ */
+/* 메인 영역: 게임 광고 탭 */
+.hero-slider {
+    display: flex;
+    height: 400px;
+    margin: 10px 0;
+    background-color: var(--panel-bg);
+    border: 1px solid #333;
+}
+
+.main-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.slider-viewport {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+.slider-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.6s ease-in-out;
+}
+.slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+}
+
+/*  광고 탭 화살표 영역 */
+.slider-side {
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+/* 측면 전체 마우스 포인터 효과 */
+.slider-side:hover {
+    background-color: rgba(193, 162, 85, 0.2);
+    color: var(--point-color);
+}
+
+/* 메인 이미지 영역 */
+.slider-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2a2a2a;
+    font-size: 12px;
+    color: #888;
+}
+/* ------------------------------------ */
+/* 중간 영역: 공지사항 */
+.notice-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+/* 중요 공지 (비어있을 경우, 숨김 처리) */
+.notice-urgent {
+    order: 1;
+    background-color: var(--alert-color);
+    color: #fff;
+    padding: 10px 3px;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-bottom: 9px;
+}
+/* 특수 경우: 텍스트가 없을 경우 반응하는 코드 */
+.notice-urgent:empty {
+    order: 3;
+    display: none;
+}
+
+/* 일반 공지 */
+.notice-general {
+    order: 2;
+    background-color: var(--panel-bg);
+    border: 1px solid #333;
+    padding: 10px 3px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    color: #ccc;
+}
+/* ------------------------------------ */
+/* 하단 영역: 게임 카테고리 및 표시창 */
+.game-content-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 13px;
+}
+.game-list-area {
+    flex: 3;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+
+}
+.game-category-title {
+    background: linear-gradient(to bottom, #49453c 0%, #77673d 100%);
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 2px solid var(--point-color);
+    margin-bottom: 10px;
+}
+.game-card {
+    height: 250px;
+    background-color: var(--panel-bg);
+    border: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    overflow: hidden;
+}
+.game-card:hover {
+    border-color: var(--point-color);
+    background-color: #2d2d2d;
+    transform: translateY(-5px);
+}
+.game-title {
+    background: linear-gradient(to bottom, #2c3542 0%, #1c232d 100%);
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    border-top: 2px solid var(--point-color);
+    margin-top: 10px;
+    color: #ddd;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* 우측 게임 정보 프리뷰 */
+.game-preview-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 0px;
+    position: relative;
+    top: 0;
+    height: auto;
+}
+.preview-content {
+    text-align: center;
+    color: #999;
+}
+
+/* 마우스를 올렸을 때 우측 영역의 안내 글자 숨기기 */
+.game-content-section:has(.game-card:hover) .preview-content {
+    display: none;
+}
+/* ------------------------------------ */
+/* Footer 영역 */
+.main-footer {
+    background-color: #151515;
+    border-top: 1px solid #222;
+    padding: 40px 0;
+    text-align: center;
+}
+/* 이용약관 */
+.footer-links {
+    margin-bottom: 15px;
+}
+.footer-links a {
+    color: #bbb;
+    margin: 0 10px;
+}
+.footer-links a:hover {
+    color: var(--point-color);
+}
+
+.divider {
+    color: #444;
+}
+
+/* Copyright */
+.copyright {
+    color: #888888;
+    font-size: 13px;
+}
+/* ------------------------------------ */
+/* 로그인 / 회원가입 폼 */
+.auth-form-section {
+    max-width: 420px;
+    margin: 60px auto;
+    background-color: var(--panel-bg);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 30px;
+}
+.auth-form-section h2 {
+    margin-bottom: 20px;
+    color: var(--point-color);
+    text-align: center;
+}
+.auth-form-section .form-row {
+    margin-bottom: 15px;
+}
+.auth-form-section label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #ccc;
+}
+.auth-form-section input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background-color: #222;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.3s;
+}
+.auth-form-section input:focus {
+    border-color: var(--point-color);
+}
+.auth-form-section button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--point-color);
+    color: #121212;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+.auth-form-section button[type="submit"]:hover {
+    opacity: 0.85;
+}
+.auth-form-section .form-footer-link {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #ccc;
+}
+.auth-form-section .form-footer-link a {
+    color: var(--point-color);
+    font-weight: bold;
+}
+/* ------------------------------------ */
+/* 마이페이지 */
+.mypage-section {
+    max-width: 900px;
+    margin: 60px auto;
+}
+.mypage-section h2 {
+    margin-bottom: 20px;
+    color: var(--point-color);
+    text-align: center;
+    line-height: 1.4;
+}
+.mypage-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.mypage-panel {
+    background-color: var(--panel-bg);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 25px;
+}
+.mypage-panel h3 {
+    margin-bottom: 15px;
+    color: var(--point-color);
+    line-height: 1.4;
+}
+.mypage-panel p {
+    color: #ccc;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+.mypage-panel .form-row {
+    margin-bottom: 15px;
+}
+.mypage-panel label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.4;
+}
+.mypage-panel input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background-color: #222;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.3s;
+    line-height: 1.4;
+}
+.mypage-panel input:focus {
+    border-color: var(--point-color);
+}
+.mypage-panel input:disabled {
+    color: #888;
+    background-color: #1a1a1a;
+    cursor: not-allowed;
+}
+.mypage-panel button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--point-color);
+    color: #121212;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+.mypage-panel button[type="submit"]:hover {
+    opacity: 0.85;
+}
+
+.mypage-danger {
+    border-color: var(--alert-color);
+}
+.btn-danger {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--alert-color);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+.btn-danger:hover {
+    opacity: 0.85;
+}
+
+.cart-mock-list {
+    list-style: none;
+}
+.cart-mock-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+    color: #ccc;
+    line-height: 1.5;
+}
+.cart-mock-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    margin-top: 10px;
+    font-weight: bold;
+    color: var(--point-color);
+    line-height: 1.5;
+}
+.cart-mock-checkout {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #444;
+    color: #999;
+    font-weight: bold;
+    cursor: not-allowed;
+}
+
+.mypage-footer-actions {
+    text-align: center;
+    margin-top: 25px;
+}
+.mypage-footer-actions .logout-link {
+    color: var(--alert-color);
+    font-weight: bold;
+    line-height: 1.5;
+}
+.mypage-footer-actions .logout-link:hover {
+    opacity: 0.8;
+}
+
+@media (max-width: 720px) {
+    .mypage-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* ------------------------------------ */
+/* 고객지원 페이지 */
+.support-section {
+    max-width: 700px;
+    margin: 60px auto;
+}
+.support-section h2 {
+    margin-bottom: 20px;
+    color: var(--point-color);
+    text-align: center;
+    line-height: 1.4;
+}
+.support-list {
+    list-style: none;
+}
+.support-row {
+    border-bottom: 1px solid #1a2530;
+}
+.support-row summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background-color: #243447;
+    color: #fff;
+    cursor: pointer;
+    list-style: none;
+    line-height: 1.4;
+    transition: background-color 0.2s ease;
+}
+.support-row summary::-webkit-details-marker {
+    display: none;
+}
+.support-row summary:hover {
+    background-color: #2f4864;
+}
+.support-arrow {
+    transition: transform 0.2s ease;
+    color: var(--point-color);
+}
+details[open] > summary .support-arrow {
+    transform: rotate(90deg);
+}
+.support-detail {
+    padding: 14px 20px;
+    background-color: #1a2530;
+    color: #ccc;
+    line-height: 1.5;
+}
+.support-row-highlight {
+    margin-top: 15px;
+}
+.support-row-highlight summary {
+    background-color: #2a2a2a;
+    border-top: 2px solid var(--point-color);
+}
+
+.support-detail p {
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+.support-detail a {
+    color: var(--point-color);
+    font-weight: bold;
+}
+.support-detail a:hover {
+    opacity: 0.8;
+}
+.support-detail {
+    overflow-x: auto;
+}
+
+.support-sublist {
+    list-style: none;
+    margin-top: 5px;
+}
+.support-subrow {
+    border-bottom: 1px solid #16202a;
+}
+.support-subrow summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: #1e2c3b;
+    color: #e0e0e0;
+    cursor: pointer;
+    list-style: none;
+    line-height: 1.4;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+.support-subrow summary::-webkit-details-marker {
+    display: none;
+}
+.support-subrow summary:hover {
+    background-color: #26384a;
+}
+.support-subrow .support-detail {
+    background-color: #131c25;
+    padding: 12px 16px;
+}
+
+.support-user-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 13px;
+}
+.support-user-table th,
+.support-user-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #2a3a4a;
+    text-align: left;
+    line-height: 1.4;
+    word-break: break-all;
+}
+.support-user-table th {
+    color: var(--point-color);
+    background-color: #16202a;
+}
+.support-user-table tbody tr:hover {
+    background-color: #1e2c3b;
+}
+.support-user-table th:nth-child(1), .support-user-table td:nth-child(1) { width: 20%; }
+.support-user-table th:nth-child(2), .support-user-table td:nth-child(2) { width: 13%; }
+.support-user-table th:nth-child(3), .support-user-table td:nth-child(3) { width: 22%; }
+.support-user-table th:nth-child(4), .support-user-table td:nth-child(4) { width: 8%; }
+.support-user-table th:nth-child(5), .support-user-table td:nth-child(5) { width: 20%; }
+.support-user-table th:nth-child(6), .support-user-table td:nth-child(6) { width: 17%; }
+
+/* ------------------------------------ */
+/* 게임 상세 페이지 */
+.gamedetail-section {
+    display: flex;
+    gap: 30px;
+    max-width: 900px;
+    margin: 60px auto;
+}
+.gamedetail-image {
+    flex: 0 0 320px;
+    height: 320px;
+    background-color: var(--panel-bg);
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.gamedetail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.gamedetail-info {
+    flex: 1;
+}
+.gamedetail-info h2 {
+    color: var(--point-color);
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+.gamedetail-genre {
+    color: #999;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+.gamedetail-price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+.gamedetail-meta {
+    list-style: none;
+    margin-bottom: 25px;
+}
+.gamedetail-meta li {
+    padding: 8px 0;
+    border-bottom: 1px solid #2a2a2a;
+    color: #ccc;
+    line-height: 1.5;
+}
+.gamedetail-meta li strong {
+    display: inline-block;
+    width: 80px;
+    color: #999;
+}
+.gamedetail-back {
+    display: inline-block;
+    color: var(--point-color);
+    font-weight: bold;
+    line-height: 1.5;
+}
+.gamedetail-back:hover {
+    opacity: 0.8;
+}
+@media (max-width: 720px) {
+    .gamedetail-section {
+        flex-direction: column;
+    }
+    .gamedetail-image {
+        flex: none;
+        width: 100%;
+    }
+}
